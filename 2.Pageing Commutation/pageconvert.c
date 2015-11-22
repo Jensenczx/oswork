@@ -1,6 +1,10 @@
+/*second commit: 1.加法运算通过位运算实现 2.物理页号，通过数组索引 3.改正移位运算错误*/
 #include <stdio.h>
+#include <stdlib.h>
+
 # define PAGE_SIZE 4096
 
+//获得物理页号
 unsigned int getPhyPage(unsigned int page)
 {
 	switch(page)
@@ -18,17 +22,34 @@ unsigned int getPhyPage(unsigned int page)
 		default:exit(1);
 	}
 }
-
+//通过位运算实现加法
+unsigned int addByByte(unsigned int num1,unsigned int num2)
+{
+	int tmp;
+	do{
+		int tmp = num1^num2;
+		num2 = (num1&num2)<<1;
+		num1 = tmp;
+	}while(num2);
+	return tmp;
+}
+//通过索引获得物理页号
+unsigned int getPhyPageByArray(unsigned int page)
+{
+	int pageIndex[]={32102,443217,6723,8985,11238,29065,234205,45812,240561,300451};
+	return pageIndex[page];
+}
+//通过函数计算获取物理页号
 unsigned int getPhyAddrByFormula(unsigned int logicAddr)
 {
-	unsigned int page = logicAddr/4096;
-	unsigned int offset = logicAddr%4096;
-	return getPhyPage(page)+offset;
+	unsigned int page = logicAddr/PAGE_SIZE;
+	unsigned int offset = logicAddr%PAGE_SIZE;
+	return getPhyPageByArray(page)+offset;
 }
-
+//通过蛮力比对法获取物理地址
 unsigned int getPhyAddrByRude(unsigned int logicAddr)
 {
-	return getPhyPage(logicAddr>>12)<<12+logicAddr<<19>>19;
+	return addByByte((getPhyPageByArray(logicAddr>>12)<<12),((logicAddr<<20)>>20));
 }
 
 int main()
