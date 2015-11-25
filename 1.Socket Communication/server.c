@@ -13,8 +13,11 @@
 #define KEY 123
 #define SIZE 1024
 
+
 /*The main process is responsible for listening the connetion if have client request to connect ,then it will create
-a process .then in the subprocess,it will create a subprocess for receiver the msg and return the msg it received*/
+a process .then in the subprocess,it will create a subprocess for receiver the msg and return the msg it received
+客户端发送请求，绑定一个套接字，套接字中含有发送的信息，然后服务器监听，之后建立连接，分配相应套接字，之前进行通信。
+*/
 
 int main()
 {
