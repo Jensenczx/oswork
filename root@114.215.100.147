@@ -49,13 +49,13 @@ int main() {
 	 		buf[numbytes] = '\0'; 
 			printf("Received: %s\n",buf);
 			printf("Send:"); 
-			char msg[100];
+			char *msg;
 			scanf("%s",msg);
 			len = strlen(msg); 
 			//sent to the server
 			if(send(sockfd,msg,len,0) == -1){ 
 				perror("send error"); 
-			}
+			} 
 		} 
 		else { 
 			printf("soket end!\n"); 

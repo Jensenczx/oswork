@@ -90,7 +90,7 @@ int main()
 		  		else if(recvbytes != 0){
 		  			buf[recvbytes] = '\0'; 
 		  			/*hold the process the function of the ntohs is converting the data*/
-		  			usleep(10000); 
+		  			usleep(1000); 
 		  			printf("%s:%d said:%s\n",inet_ntoa(client_sockaddr.sin_addr), ntohs(client_sockaddr.sin_port), buf); 
 		  			//send same message to the client. 
 		  			if(send(client_sockfd,buf,recvbytes,0)==-1){ 
